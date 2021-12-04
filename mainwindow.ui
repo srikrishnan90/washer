@@ -27,7 +27,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QToolButton" name="toolButton">
@@ -118,7 +118,7 @@ border-radius: 10px;
         <x>20</x>
         <y>20</y>
         <width>181</width>
-        <height>151</height>
+        <height>141</height>
        </rect>
       </property>
       <property name="title">
@@ -128,9 +128,9 @@ border-radius: 10px;
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>31</y>
+         <y>20</y>
          <width>181</width>
-         <height>101</height>
+         <height>121</height>
         </rect>
        </property>
        <property name="font">
@@ -159,7 +159,7 @@ border-radius: 10px;
         <x>250</x>
         <y>20</y>
         <width>121</width>
-        <height>311</height>
+        <height>331</height>
        </rect>
       </property>
       <property name="title">
@@ -169,9 +169,9 @@ border-radius: 10px;
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>30</y>
+         <y>20</y>
          <width>121</width>
-         <height>281</height>
+         <height>311</height>
         </rect>
        </property>
        <property name="font">
@@ -317,7 +317,7 @@ border-radius: 10px;
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>180</y>
+        <y>200</y>
         <width>181</width>
         <height>151</height>
        </rect>
@@ -329,9 +329,9 @@ border-radius: 10px;
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>31</y>
+         <y>20</y>
          <width>181</width>
-         <height>101</height>
+         <height>131</height>
         </rect>
        </property>
        <property name="font">
@@ -998,9 +998,9 @@ border-radius : 18px;
      <widget class="QGroupBox" name="groupBox_5">
       <property name="geometry">
        <rect>
-        <x>89</x>
+        <x>100</x>
         <y>30</y>
-        <width>181</width>
+        <width>101</width>
         <height>331</height>
        </rect>
       </property>
@@ -1010,7 +1010,7 @@ border-radius : 18px;
       <widget class="QListWidget" name="listWidget_5">
        <property name="geometry">
         <rect>
-         <x>40</x>
+         <x>0</x>
          <y>20</y>
          <width>101</width>
          <height>311</height>
@@ -1179,9 +1179,9 @@ border-radius : 18px;
      <widget class="QPushButton" name="pushButton">
       <property name="geometry">
        <rect>
-        <x>222</x>
+        <x>220</x>
         <y>110</y>
-        <width>111</width>
+        <width>115</width>
         <height>25</height>
        </rect>
       </property>
@@ -1197,7 +1197,7 @@ border-radius : 18px;
        <rect>
         <x>540</x>
         <y>110</y>
-        <width>111</width>
+        <width>115</width>
         <height>25</height>
        </rect>
       </property>
@@ -1206,6 +1206,32 @@ border-radius : 18px;
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_14">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>280</y>
+        <width>150</width>
+        <height>70</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Stop Timer 1</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_15">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>280</y>
+        <width>150</width>
+        <height>70</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Stop Timer 2</string>
       </property>
      </widget>
     </widget>
@@ -4218,6 +4244,19 @@ QPushButton:disabled {
     </property>
     <property name="text">
      <string>Home</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_17">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>450</y>
+      <width>64</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

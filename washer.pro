@@ -26,10 +26,12 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    pi2c.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    pi2c.h
 
 FORMS += \
         mainwindow.ui

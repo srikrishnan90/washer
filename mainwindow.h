@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <pi2c.h>
+#include <QThread>
+#include <QTimer>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
@@ -64,8 +68,36 @@ private slots:
 
     void processing();
 
+    void write_motor(QString);
+
+    int read_motor();
+
+    void write_heater(QString);
+
+    int read_heater();
+    void changepage();
+    int read_sensor();
+
+    void on_toolButton_9_clicked();
+
+    void on_toolButton_11_clicked();
+
+    void on_toolButton_10_clicked();
+    void update();
+    void timer1update();
+    void timer2update();
+
+    void on_toolButton_12_clicked();
+
+    void on_toolButton_13_clicked();
+
+    void on_toolButton_14_clicked();
+
+    void on_toolButton_15_clicked();
+
 private:
     Ui::MainWindow *ui;
+    QTimer *timer, *timer1, *timer2;
 };
 
 #endif // MAINWINDOW_H
