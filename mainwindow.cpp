@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setWindowFlags(Qt::FramelessWindowHint);
     timer = new QTimer(this);
     timer1 = new QTimer(this);
     timer2 = new QTimer(this);
@@ -145,12 +146,12 @@ void MainWindow::processing()
                             move_pos=current_pos-previous_pos;
                             if(i==wash_times+1)
                             {
-                                data="mof "+QString::number(move_pos)+" "+QString::number(wash_volume)+" "+QString::number(wash_method);
+                                data="mof "+QString::number(move_pos)+" "+QString::number(wash_volume)+" "+QString::number(wash_option);
                                 text="Final Aspiration of strip "+QString::number(j+1);
                             }
                             else
                             {
-                                data="mov "+QString::number(move_pos)+" "+QString::number(wash_volume)+" "+QString::number(wash_method);
+                                data="mov "+QString::number(move_pos)+" "+QString::number(wash_volume)+" "+QString::number(wash_option);
                                 text="Washing strip "+QString::number(j+1)+" of "+QString::number(i+1)+"/"+QString::number(wash_times+1)+" times";
                             }
                             ui->label_13->setText(text);
@@ -196,19 +197,19 @@ void MainWindow::processing()
                         {
                             if(i==0)
                             {
-                                data="mov "+QString::number(move_pos)+" "+QString::number(wash_volume)+" "+QString::number(wash_method);
+                                data="mov "+QString::number(move_pos)+" "+QString::number(wash_volume)+" "+QString::number(wash_option);
                                 text="Washing strip "+QString::number(j+1)+" of "+QString::number(i+1)+"/"+QString::number(wash_times+1)+" times";
                             }
                             else
                             {
                                 if(i==wash_times+1)
                                 {
-                                    data="mof 0 "+QString::number(wash_volume)+" "+QString::number(wash_method);
+                                    data="mof 0 "+QString::number(wash_volume)+" "+QString::number(wash_option);
                                     text="Final Aspiration of strip  "+QString::number(j+1);
                                 }
                                 else
                                 {
-                                    data="mov 0 "+QString::number(wash_volume)+" "+QString::number(wash_method);
+                                    data="mov 0 "+QString::number(wash_volume)+" "+QString::number(wash_option);
                                     text="Washing strip "+QString::number(j+1)+" of "+QString::number(i+1)+"/"+QString::number(wash_times+1)+" times";
                                 }
                             }
@@ -230,6 +231,7 @@ void MainWindow::processing()
 
 void MainWindow::write_motor(QString val)
 {
+    qDebug()<<val;
     QMessageBox msgBox;
     //if(!(strncmp(val,"ini",3)==0 || strncmp(val,"buz",3)==0 || strncmp(val,"stp",3)==0 ||strncmp(val,"shk",3)==0)) //if(val!="ini")
     if(!(val.left(3)=="ini"||val.left(3)=="buz"||val.left(3)=="stp"||val.left(3)=="shk"))
@@ -241,10 +243,14 @@ void MainWindow::write_motor(QString val)
             read_sensor();
             if(wplg_stat==1 || wsen_stat==1)
             {
+                write_heater("buz 2");
                 msgBox.setWindowTitle("Warning...");
-                msgBox.setText("check sensor status and click Yes to Resume and No to Stop");
+                if(wplg_stat==1)
+                    msgBox.setText("Connect Waste Senor Plug Status and Click Yes to Resume. Click Cancel to Stop Washing.");
+                if(wsen_stat==1)
+                    msgBox.setText("Empty Waste Bottle and Click Yes to Resume. Click Cancel to Stop Washing.");
                 msgBox.setStandardButtons(msgBox.Yes);
-                msgBox.addButton(msgBox.No);
+                msgBox.addButton(msgBox.Cancel);
                 msgBox.setStyleSheet("QLabel{min-width:500 px; font-size: 24px;} QPushButton{ width:200px; height:50px; font-size: 18px; }");
                 if(msgBox.exec() == msgBox.Yes)
                 {
@@ -260,6 +266,10 @@ void MainWindow::write_motor(QString val)
             else if(sen_war==1)
             {
                 sen_war=0;
+                break;
+            }
+            else
+            {
                 break;
             }
             if(stop_stat==1)
@@ -282,7 +292,7 @@ void MainWindow::write_motor(QString val)
         {
             QApplication::processEvents();
             QThread::msleep(500);
-            if(!read_motor())
+            if(read_motor())
                 break;
             else if(stop_stat==1)
             {
@@ -309,6 +319,7 @@ int MainWindow::read_motor()
 
 void MainWindow::write_heater(QString val)
 {
+    qDebug()<<val;
     Pi2c arduino(8);
     QString data=val;
     char* ch;
@@ -342,11 +353,13 @@ int MainWindow::read_sensor()
     arduino.i2cRead(receive,30);
     QThread::msleep(100);
     QString str=receive;
-    //wplg_stat=str.mid(5,6).toInt();
-    //wsen_stat=str.mid(7,8).toInt();
-    wplg_stat=1;
-    wsen_stat=1;
-
+    wplg_stat=str.mid(8,1).toInt();
+    wsen_stat=str.mid(11,1).toInt();
+//   qDebug()<<"plug:"<<wplg_stat<<"sensor:"<<wsen_stat<<"str:"<<str;
+//   for(int i=0;i<13;i++)
+//   {
+//       qDebug()<<str.mid(i,1);
+//   }
 }
 
 void MainWindow::on_toolButton_2_clicked()
@@ -490,22 +503,24 @@ void MainWindow::on_toolButton_11_clicked()
     int speed=ui->listWidget_5->currentRow()+1;
     int dur=ui->lineEdit->text().toInt();
     QString data="shk "+QString::number(speed)+" "+QString::number(dur);
-    write_motor(data);
-    timer->start(1000);
     ui->toolButton_11->hide();
     ui->toolButton_10->setVisible(true);
-
-
+    QApplication::processEvents();
+    write_motor(data);
+    QThread::msleep(1000);
+    timer->start(1000);
 }
 
 void MainWindow::on_toolButton_10_clicked()
 {
+    ui->toolButton_10->setVisible(false);
+    ui->toolButton_11->setVisible(true);
+    ui->stackedWidget->setCurrentIndex(0);
+    QApplication::processEvents();
     write_motor("ini");
     ui->lineEdit->clear();
     timer->stop();
-    ui->stackedWidget->setCurrentIndex(0);
-    ui->toolButton_10->setVisible(false);
-    ui->toolButton_11->setVisible(true);
+
 }
 
 void MainWindow::update()
@@ -585,4 +600,19 @@ void MainWindow::on_toolButton_15_clicked()
     timer2->stop();
     ui->toolButton_13->setVisible(true);
     ui->toolButton_15->hide();
+}
+
+void MainWindow::on_toolButton_8_clicked()
+{
+     write_motor("rns");
+}
+
+void MainWindow::on_toolButton_16_clicked()
+{
+     write_motor("prm");
+}
+
+void MainWindow::on_toolButton_17_clicked()
+{
+    qApp->exit();
 }
