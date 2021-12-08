@@ -24,12 +24,16 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
+
     timer = new QTimer(this);
     timer1 = new QTimer(this);
     timer2 = new QTimer(this);
+    temptimer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this,SLOT(update()));
     connect(timer1, SIGNAL(timeout()), this,SLOT(timer1update()));
     connect(timer2, SIGNAL(timeout()), this,SLOT(timer2update()));
+    connect(temptimer, SIGNAL(timeout()), this,SLOT(read_heater()));
+    temptimer->start(1000);
     ui->stackedWidget->setCurrentIndex(0);
 }
 
@@ -71,6 +75,8 @@ void MainWindow::on_toolButton_6_clicked()
     ui->stackedWidget->setCurrentIndex(3);
     ui->toolButton_9->setVisible(true);
     ui->toolButton_4->hide();
+    ui->toolButton_17->hide();
+
     QApplication::processEvents();
     //QTimer::singleShot(100, this, SLOT(processing()));
     for(int i=0;i<12;i++)
@@ -226,11 +232,16 @@ void MainWindow::processing()
         ui->stackedWidget->setCurrentIndex(0);
     }
     ui->toolButton_4->setVisible(true);
+    ui->toolButton_17->setVisible(true);
 }
 
 
 void MainWindow::write_motor(QString val)
 {
+    QMovie *movie = new QMovie("/home/pi/git/washer/loader.gif");
+    ui->label_19->setMovie(movie);
+    ui->label_19->setVisible(true);
+    movie->start();
     qDebug()<<val;
     QMessageBox msgBox;
     //if(!(strncmp(val,"ini",3)==0 || strncmp(val,"buz",3)==0 || strncmp(val,"stp",3)==0 ||strncmp(val,"shk",3)==0)) //if(val!="ini")
@@ -258,6 +269,7 @@ void MainWindow::write_motor(QString val)
                 }
                 else
                 {
+                    qDebug()<<"in else";
                     stop_stat=1;
                     break;
                 }
@@ -279,7 +291,7 @@ void MainWindow::write_motor(QString val)
         }
     }
     if(stop_stat==0)
-    {
+    {       
         Pi2c arduino(7);
         QString data=val;
         char* ch;
@@ -291,15 +303,19 @@ void MainWindow::write_motor(QString val)
         while(true)
         {
             QApplication::processEvents();
-            QThread::msleep(500);
+            QThread::msleep(100);
             if(read_motor())
+            {
                 break;
+            }
             else if(stop_stat==1)
             {
                 break;
             }
         }
     }
+    movie->stop();
+    ui->label_19->hide();
 }
 
 
@@ -496,6 +512,8 @@ void MainWindow::on_toolButton_9_clicked()
     stop_stat=1;
     ui->toolButton_9->hide();
     ui->toolButton_4->setVisible(true);
+    ui->toolButton_17->setVisible(true);
+
 }
 
 void MainWindow::on_toolButton_11_clicked()
@@ -506,9 +524,14 @@ void MainWindow::on_toolButton_11_clicked()
     ui->toolButton_11->hide();
     ui->toolButton_10->setVisible(true);
     QApplication::processEvents();
+    //timer->start(1000);
+    QTimer::singleShot(1000, this, SLOT(timerstart()));
     write_motor(data);
-    QThread::msleep(1000);
-    timer->start(1000);
+}
+
+void MainWindow::timerstart()
+{
+ timer->start(1000);
 }
 
 void MainWindow::on_toolButton_10_clicked()
@@ -604,11 +627,13 @@ void MainWindow::on_toolButton_15_clicked()
 
 void MainWindow::on_toolButton_8_clicked()
 {
+    stop_stat=0;
      write_motor("rns");
 }
 
 void MainWindow::on_toolButton_16_clicked()
 {
+    stop_stat=0;
      write_motor("prm");
 }
 

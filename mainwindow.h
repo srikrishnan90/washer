@@ -7,6 +7,7 @@
 #include <QThread>
 #include <QTimer>
 #include <QMessageBox>
+#include <QMovie>
 
 namespace Ui {
 class MainWindow;
@@ -86,6 +87,7 @@ private slots:
     void update();
     void timer1update();
     void timer2update();
+    void timerstart();
 
     void on_toolButton_12_clicked();
 
@@ -103,7 +105,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QTimer *timer, *timer1, *timer2;
+    QTimer *timer, *timer1, *timer2, *temptimer;
 };
 
 #endif // MAINWINDOW_H
