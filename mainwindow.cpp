@@ -7,6 +7,7 @@ static int wash_method=0;
 static int wash_option=0;
 static int wash_volume=0;
 static int wash_times=0;
+static int pump_speed=0;
 static int current_pos=0;
 static int previous_pos=0;
 static int move_pos=0;
@@ -35,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(temptimer, SIGNAL(timeout()), this,SLOT(read_heater()));
     temptimer->start(1000);
     ui->stackedWidget->setCurrentIndex(0);
+    init_load_set();
 }
 
 MainWindow::~MainWindow()
@@ -113,6 +115,7 @@ void MainWindow::on_toolButton_6_clicked()
     wash_option=ui->listWidget_2->currentRow();
     wash_volume=ui->listWidget_3->currentRow();
     wash_times=ui->listWidget_4->currentRow();
+    pump_speed=ui->lineEdit_10->text().toInt();
     processing();
 
 }
@@ -152,16 +155,18 @@ void MainWindow::processing()
                             move_pos=current_pos-previous_pos;
                             if(i==wash_times+1)
                             {
-                                data="mof "+QString::number(move_pos)+" "+QString::number(wash_volume)+" "+QString::number(wash_option);
+                                data="mof "+QString::number(move_pos)+" "+QString::number(wash_volume)+" "+QString::number(wash_option)+" "+QString::number(pump_speed);
                                 text="Final Aspiration of strip "+QString::number(j+1);
                             }
                             else
                             {
-                                data="mov "+QString::number(move_pos)+" "+QString::number(wash_volume)+" "+QString::number(wash_option);
+                                data="mov "+QString::number(move_pos)+" "+QString::number(wash_volume)+" "+QString::number(wash_option)+" "+QString::number(pump_speed);
                                 text="Washing strip "+QString::number(j+1)+" of "+QString::number(i+1)+"/"+QString::number(wash_times+1)+" times";
                             }
                             ui->label_13->setText(text);
+                            //write_heater("ONN");
                             write_motor(data);
+                            //write_heater("OFF");
                         }
                     }
                 }
@@ -203,24 +208,26 @@ void MainWindow::processing()
                         {
                             if(i==0)
                             {
-                                data="mov "+QString::number(move_pos)+" "+QString::number(wash_volume)+" "+QString::number(wash_option);
+                                data="mov "+QString::number(move_pos)+" "+QString::number(wash_volume)+" "+QString::number(wash_option)+" "+QString::number(pump_speed);
                                 text="Washing strip "+QString::number(j+1)+" of "+QString::number(i+1)+"/"+QString::number(wash_times+1)+" times";
                             }
                             else
                             {
                                 if(i==wash_times+1)
                                 {
-                                    data="mof 0 "+QString::number(wash_volume)+" "+QString::number(wash_option);
+                                    data="mof 0 "+QString::number(wash_volume)+" "+QString::number(wash_option)+" "+QString::number(pump_speed);
                                     text="Final Aspiration of strip  "+QString::number(j+1);
                                 }
                                 else
                                 {
-                                    data="mov 0 "+QString::number(wash_volume)+" "+QString::number(wash_option);
+                                    data="mov 0 "+QString::number(wash_volume)+" "+QString::number(wash_option)+" "+QString::number(pump_speed);
                                     text="Washing strip "+QString::number(j+1)+" of "+QString::number(i+1)+"/"+QString::number(wash_times+1)+" times";
                                 }
                             }
                             ui->label_13->setText(text);
+                            //write_heater("ONN");
                             write_motor(data);
+                            //write_heater("OFF");
                         }
                     }
                 }
@@ -291,7 +298,7 @@ void MainWindow::write_motor(QString val)
         }
     }
     if(stop_stat==0)
-    {       
+    {
         Pi2c arduino(7);
         QString data=val;
         char* ch;
@@ -371,11 +378,11 @@ int MainWindow::read_sensor()
     QString str=receive;
     wplg_stat=str.mid(8,1).toInt();
     wsen_stat=str.mid(11,1).toInt();
-//   qDebug()<<"plug:"<<wplg_stat<<"sensor:"<<wsen_stat<<"str:"<<str;
-//   for(int i=0;i<13;i++)
-//   {
-//       qDebug()<<str.mid(i,1);
-//   }
+    //   qDebug()<<"plug:"<<wplg_stat<<"sensor:"<<wsen_stat<<"str:"<<str;
+    //   for(int i=0;i<13;i++)
+    //   {
+    //       qDebug()<<str.mid(i,1);
+    //   }
 }
 
 void MainWindow::on_toolButton_2_clicked()
@@ -489,6 +496,48 @@ void MainWindow::on_pushButton_136_clicked()
         ui->lineEdit->setText(ui->lineEdit_4->text());
         ui->stackedWidget->setCurrentIndex(4);
     }
+    else if(optn==4)
+    {
+        ui->lineEdit_5->setText(ui->lineEdit_4->text());
+        ui->stackedWidget->setCurrentIndex(8);
+    }
+    else if(optn==5)
+    {
+        ui->lineEdit_7->setText(ui->lineEdit_4->text());
+        save(0,ui->lineEdit_4->text());
+        ui->stackedWidget->setCurrentIndex(9);
+    }
+    else if(optn==6)
+    {
+        ui->lineEdit_8->setText(ui->lineEdit_4->text());
+        save(1,ui->lineEdit_4->text());
+        ui->stackedWidget->setCurrentIndex(9);
+    }
+    else if(optn==7)
+    {
+        ui->lineEdit_10->setText(ui->lineEdit_4->text());
+        save(2,ui->lineEdit_4->text());
+        ui->stackedWidget->setCurrentIndex(9);
+    }
+    else if(optn==8)
+    {
+        ui->lineEdit_9->setText(ui->lineEdit_4->text());
+        save(3,ui->lineEdit_4->text());
+        ui->stackedWidget->setCurrentIndex(9);
+    }
+
+    else if(optn==9)
+    {
+        ui->lineEdit_12->setText(ui->lineEdit_4->text());
+        save(4,ui->lineEdit_4->text());
+        ui->stackedWidget->setCurrentIndex(10);
+    }
+    else if(optn==10)
+    {
+        ui->lineEdit_11->setText(ui->lineEdit_4->text());
+        save(5,ui->lineEdit_4->text());
+        ui->stackedWidget->setCurrentIndex(10);
+    }
 }
 
 void MainWindow::on_toolButton_7_clicked()
@@ -531,7 +580,7 @@ void MainWindow::on_toolButton_11_clicked()
 
 void MainWindow::timerstart()
 {
- timer->start(1000);
+    timer->start(1000);
 }
 
 void MainWindow::on_toolButton_10_clicked()
@@ -628,16 +677,695 @@ void MainWindow::on_toolButton_15_clicked()
 void MainWindow::on_toolButton_8_clicked()
 {
     stop_stat=0;
-     write_motor("rns");
+    QString spd=ui->lineEdit_7->text();
+    QString sec=ui->lineEdit_12->text();
+    QString str="rns "+spd+" "+sec;
+    write_motor(str);
+
 }
 
 void MainWindow::on_toolButton_16_clicked()
 {
     stop_stat=0;
-     write_motor("prm");
+    QString spd=ui->lineEdit_10->text();
+    QString sec=ui->lineEdit_11->text();
+    QString str="prm "+spd+" "+sec;
+    write_motor(str);
 }
 
 void MainWindow::on_toolButton_17_clicked()
 {
+    ui->stackedWidget->setCurrentIndex(7);
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
     qApp->exit();
+}
+
+void MainWindow::on_toolButton_18_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(8);
+    ui->label_32->setVisible(true);
+    qApp->processEvents();
+    QStringList list2;
+    QProcess process1;
+    process1.start("sh",QStringList()<<"-c"<<"sudo iwlist wlan0 scan | grep ESSID");//scan list of wifi networks
+    process1.waitForFinished();
+    //ui->page_12->setVisible(true);
+    ui->label_32->hide();
+    QString data = process1.readAllStandardOutput();
+    QString Error= process1.readAllStandardError();
+    ui->comboBox->clear();
+    list2 = (QStringList()<<"------Select-------");//append to dropdownlist
+    ui->comboBox->addItems(list2);
+    QStringList list = data.split("\n");//split data
+    for(int i=0;i<list.count()-1;i++)
+    {
+        QStringList list1 = list.at(i).split("ESSID:");
+        QString data1 = list1.at(1);
+        list2 = (QStringList()<<data1);
+        ui->comboBox->addItems(list2);//adding wifi names to dropdownlist
+    }
+    process1.start("sh",QStringList()<<"-c"<<"hostname -I");//scan list of wifi networks
+    process1.waitForFinished();
+    data = process1.readAllStandardOutput();
+    ui->lineEdit_6->setText(data);
+
+}
+
+void MainWindow::on_toolButton_25_clicked()
+{
+
+    QFile file("/etc/wpa_supplicant/wpa_supplicant.conf");
+    if(file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        QTextStream stream(&file);
+        stream<<"ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n";
+        stream<<"update_config=1\n";
+        stream<<"country=IN\n";
+        stream<<"\n";
+        stream<<"network={\n";
+        stream<<"\tssid=";
+        stream<<ui->comboBox->currentText()+"\n";
+        stream<<"\tpsk=\"";
+        stream<<ui->lineEdit_5->text()+"\"\n";
+        stream<<"\tkey_mgmt=WPA-PSK\n";
+        stream<<"}";
+
+        file.close();
+        QProcess process2;
+        process2.start("sh",QStringList()<<"-c"<<"sudo wpa_cli -i wlan0 reconfigure");
+        process2.waitForFinished();
+    }
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    optn=4;
+    ui->lineEdit_4->clear();
+    ui->stackedWidget->setCurrentIndex(6);
+    ui->stackedWidget_2->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_94_clicked()
+{
+    on_pushButton_136_clicked();
+}
+
+void MainWindow::on_pushButton_50_clicked()
+{
+    on_pushButton_136_clicked();
+}
+
+void MainWindow::on_toolButton_26_clicked()
+{
+    QProcess process1;
+    process1.start("sh",QStringList()<<"-c"<<"hostname -I");//scan list of wifi networks
+    process1.waitForFinished();
+    QString data = process1.readAllStandardOutput();
+    ui->lineEdit_6->setText(data);
+}
+
+void MainWindow::on_pushButton_139_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_72_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(2);
+
+}
+
+void MainWindow::on_pushButton_110_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(2);
+
+}
+
+void MainWindow::on_pushButton_101_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(0);
+
+}
+
+void MainWindow::on_pushButton_105_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(0);
+
+}
+
+void MainWindow::on_pushButton_57_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(1);
+
+}
+
+void MainWindow::on_pushButton_61_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(1);
+
+}
+
+void MainWindow::on_pushButton_9_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_9->text());
+}
+
+void MainWindow::on_pushButton_10_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_10->text());
+}
+
+void MainWindow::on_pushButton_36_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_36->text());
+}
+
+void MainWindow::on_pushButton_35_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_35->text());
+}
+
+void MainWindow::on_pushButton_40_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_40->text());
+}
+
+void MainWindow::on_pushButton_38_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_38->text());
+}
+
+void MainWindow::on_pushButton_39_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_39->text());
+}
+
+void MainWindow::on_pushButton_37_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_37->text());
+}
+
+void MainWindow::on_pushButton_43_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_43->text());
+}
+
+void MainWindow::on_pushButton_42_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_42->text());
+}
+
+void MainWindow::on_pushButton_85_clicked()
+{
+    ui->lineEdit_4->backspace();
+}
+
+void MainWindow::on_pushButton_41_clicked()
+{
+    ui->lineEdit_4->backspace();
+}
+
+void MainWindow::on_pushButton_51_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_51->text());
+}
+
+void MainWindow::on_pushButton_45_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_45->text());
+}
+
+void MainWindow::on_pushButton_46_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_46->text());
+}
+
+void MainWindow::on_pushButton_44_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_44->text());
+}
+
+void MainWindow::on_pushButton_52_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_52->text());
+}
+
+void MainWindow::on_pushButton_49_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_49->text());
+}
+
+void MainWindow::on_pushButton_47_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_47->text());
+}
+
+void MainWindow::on_pushButton_48_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_48->text());
+}
+
+void MainWindow::on_pushButton_53_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_53->text());
+}
+
+void MainWindow::on_pushButton_63_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_63->text());
+}
+
+void MainWindow::on_pushButton_60_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_60->text());
+}
+
+void MainWindow::on_pushButton_55_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_55->text());
+}
+
+void MainWindow::on_pushButton_62_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_62->text());
+}
+
+void MainWindow::on_pushButton_64_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_64->text());
+}
+
+void MainWindow::on_pushButton_58_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_58->text());
+}
+
+void MainWindow::on_pushButton_59_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_59->text());
+}
+
+void MainWindow::on_pushButton_54_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_54->text());
+}
+
+void MainWindow::on_pushButton_56_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_56->text());
+}
+
+void MainWindow::on_pushButton_75_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_75->text());
+}
+
+void MainWindow::on_pushButton_73_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_73->text());
+}
+
+void MainWindow::on_pushButton_71_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_71->text());
+}
+
+void MainWindow::on_pushButton_76_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_76->text());
+}
+
+void MainWindow::on_pushButton_100_clicked()
+{
+    ui->lineEdit_4->setText("&");
+}
+
+void MainWindow::on_pushButton_77_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_77->text());
+}
+
+void MainWindow::on_pushButton_78_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_78->text());
+}
+
+void MainWindow::on_pushButton_80_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_80->text());
+}
+
+void MainWindow::on_pushButton_79_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_79->text());
+}
+
+void MainWindow::on_pushButton_84_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_84->text());
+}
+
+void MainWindow::on_pushButton_82_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_82->text());
+}
+
+void MainWindow::on_pushButton_83_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_83->text());
+}
+
+void MainWindow::on_pushButton_81_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_81->text());
+}
+
+void MainWindow::on_pushButton_87_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_87->text());
+}
+
+void MainWindow::on_pushButton_86_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_86->text());
+}
+
+void MainWindow::on_pushButton_95_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_95->text());
+}
+
+void MainWindow::on_pushButton_89_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_89->text());
+}
+
+void MainWindow::on_pushButton_90_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_90->text());
+}
+
+void MainWindow::on_pushButton_88_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_88->text());
+}
+
+void MainWindow::on_pushButton_96_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_96->text());
+}
+
+void MainWindow::on_pushButton_93_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_93->text());
+}
+
+void MainWindow::on_pushButton_91_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_91->text());
+}
+
+void MainWindow::on_pushButton_92_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_92->text());
+}
+
+void MainWindow::on_pushButton_97_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_97->text());
+}
+
+void MainWindow::on_pushButton_107_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_107->text());
+}
+
+void MainWindow::on_pushButton_104_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_104->text());
+}
+
+void MainWindow::on_pushButton_99_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_99->text());
+}
+
+void MainWindow::on_pushButton_106_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_106->text());
+}
+
+void MainWindow::on_pushButton_108_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_108->text());
+}
+
+void MainWindow::on_pushButton_102_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_102->text());
+}
+
+void MainWindow::on_pushButton_103_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_103->text());
+}
+
+void MainWindow::on_pushButton_98_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_98->text());
+}
+
+void MainWindow::on_pushButton_113_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_113->text());
+}
+
+void MainWindow::on_pushButton_111_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_111->text());
+}
+
+void MainWindow::on_pushButton_109_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_109->text());
+}
+
+void MainWindow::on_pushButton_114_clicked()
+{
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+ui->pushButton_114->text());
+}
+
+void MainWindow::on_pushButton_74_clicked()
+{
+    ui->lineEdit_4->setText(" ");
+}
+
+void MainWindow::on_pushButton_112_clicked()
+{
+    ui->lineEdit_4->setText(" ");
+
+}
+
+void MainWindow::on_toolButton_19_clicked()
+{
+    QString line;
+    QString lines[6];
+    int n=0;
+    ui->stackedWidget->setCurrentIndex(9);
+    QFile file("/home/pi/git/washer/settings.txt");
+    if(file.open(QIODevice::ReadOnly|QIODevice::Text))
+    {
+
+        QTextStream stream(&file);
+
+        do {
+            line = stream.readLine();
+            lines[n]=line;
+            n++;
+        } while(!line.isNull());
+
+        file.close();
+        //qDebug() << "Reading finished";
+    }
+    ui->lineEdit_7->setText(lines[0]);
+    ui->lineEdit_8->setText(lines[1]);
+    ui->lineEdit_10->setText(lines[2]);
+    ui->lineEdit_9->setText(lines[3]);
+}
+
+void MainWindow::on_toolButton_20_clicked()
+{
+    QString line;
+    QString lines[6];
+    int n=0;
+    ui->stackedWidget->setCurrentIndex(10);
+    QFile file("/home/pi/git/washer/settings.txt");
+    if(file.open(QIODevice::ReadOnly|QIODevice::Text))
+    {
+
+        QTextStream stream(&file);
+
+        do {
+            line = stream.readLine();
+            lines[n]=line;
+            n++;
+        } while(!line.isNull());
+
+        file.close();
+        //qDebug() << "Reading finished";
+    }
+    ui->lineEdit_12->setText(lines[4]);
+    ui->lineEdit_11->setText(lines[5]);
+
+}
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    optn=5;
+    ui->lineEdit_4->clear();
+    ui->lineEdit_4->setText(ui->lineEdit_7->text());
+    ui->stackedWidget->setCurrentIndex(6);
+    ui->stackedWidget_2->setCurrentIndex(2);
+}
+
+void MainWindow::on_pushButton_8_clicked()
+{
+    optn=6;
+    ui->lineEdit_4->clear();
+    ui->lineEdit_4->setText(ui->lineEdit_8->text());
+    ui->stackedWidget->setCurrentIndex(6);
+    ui->stackedWidget_2->setCurrentIndex(2);
+}
+
+void MainWindow::on_pushButton_11_clicked()
+{
+    optn=7;
+    ui->lineEdit_4->clear();
+    ui->lineEdit_4->setText(ui->lineEdit_10->text());
+    ui->stackedWidget->setCurrentIndex(6);
+    ui->stackedWidget_2->setCurrentIndex(2);
+}
+
+void MainWindow::on_pushButton_12_clicked()
+{
+    optn=8;
+    ui->lineEdit_4->clear();
+    ui->lineEdit_4->setText(ui->lineEdit_9->text());
+    ui->stackedWidget->setCurrentIndex(6);
+    ui->stackedWidget_2->setCurrentIndex(2);
+}
+
+void MainWindow::on_pushButton_14_clicked()
+{
+    optn=9;
+    ui->lineEdit_4->clear();
+    ui->lineEdit_4->setText(ui->lineEdit_12->text());
+    ui->stackedWidget->setCurrentIndex(6);
+    ui->stackedWidget_2->setCurrentIndex(2);
+}
+
+void MainWindow::on_pushButton_13_clicked()
+{
+    optn=10;
+    ui->lineEdit_4->clear();
+    ui->lineEdit_4->setText(ui->lineEdit_11->text());
+    ui->stackedWidget->setCurrentIndex(6);
+    ui->stackedWidget_2->setCurrentIndex(2);
+}
+
+void MainWindow::save(int num, QString val)
+{
+    QString line;
+    QString lines[6];
+    int n=0;
+    ui->stackedWidget->setCurrentIndex(10);
+    QFile file("/home/pi/git/washer/settings.txt");
+    QTextStream stream(&file);
+    if(file.open(QIODevice::ReadOnly|QIODevice::Text))
+    {
+
+        do {
+            line = stream.readLine();
+            lines[n]=line;
+            n++;
+        } while(!line.isNull());
+        file.close();
+    }
+    if(file.open(QIODevice::WriteOnly|QIODevice::Text))
+    {
+
+        for(int i=0;i<6;i++)
+        {
+            if(i==num)
+                stream<<val+"\n";
+            else {
+                stream<<lines[i]+"\n";
+            }
+        }
+        file.close();
+
+    }
+}
+
+void MainWindow::init_load_set()
+{
+    QString line;
+    QString lines[6];
+    int n=0;
+    QFile file("/home/pi/git/washer/settings.txt");
+    if(file.open(QIODevice::ReadOnly|QIODevice::Text))
+    {
+
+        QTextStream stream(&file);
+
+        do {
+            line = stream.readLine();
+            lines[n]=line;
+            n++;
+        } while(!line.isNull());
+
+        file.close();
+        //qDebug() << "Reading finished";
+    }
+    ui->lineEdit_7->setText(lines[0]);
+    ui->lineEdit_8->setText(lines[1]);
+    ui->lineEdit_10->setText(lines[2]);
+    ui->lineEdit_9->setText(lines[3]);
+    ui->lineEdit_12->setText(lines[4]);
+    ui->lineEdit_11->setText(lines[5]);
+}
+
+void MainWindow::on_toolButton_21_clicked()
+{
+    QString spd=ui->lineEdit_7->text();
+    QString sec=ui->lineEdit_8->text();
+    QString str="rns "+spd+" "+sec;
+    write_motor(str);
+}
+
+void MainWindow::on_toolButton_22_clicked()
+{
+    QString spd=ui->lineEdit_10->text();
+    QString sec=ui->lineEdit_9->text();
+    QString str="prm "+spd+" "+sec;
+    write_motor(str);
+}
+
+void MainWindow::on_toolButton_24_clicked()
+{
+    QString spd=ui->lineEdit_7->text();
+    QString sec=ui->lineEdit_12->text();
+    QString str="rns "+spd+" "+sec;
+    write_motor(str);
+}
+
+void MainWindow::on_toolButton_23_clicked()
+{
+    QString spd=ui->lineEdit_10->text();
+    QString sec=ui->lineEdit_11->text();
+    QString str="prm "+spd+" "+sec;
+    write_motor(str);
 }

@@ -30,7 +30,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>8</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QToolButton" name="toolButton">
@@ -3904,7 +3904,7 @@ QPushButton:disabled {
 }</string>
          </property>
          <property name="text">
-          <string>:</string>
+          <string>@</string>
          </property>
         </widget>
         <widget class="QPushButton" name="pushButton_99">
@@ -3968,7 +3968,7 @@ QPushButton:disabled {
 }</string>
          </property>
          <property name="text">
-          <string>;</string>
+          <string>&amp;&amp;</string>
          </property>
         </widget>
         <widget class="QPushButton" name="pushButton_101">
@@ -4260,7 +4260,7 @@ QPushButton:disabled {
 }</string>
          </property>
          <property name="text">
-          <string>/</string>
+          <string>+</string>
          </property>
         </widget>
         <widget class="QPushButton" name="pushButton_110">
@@ -4308,7 +4308,7 @@ QPushButton:disabled {
          </property>
          <property name="font">
           <font>
-           <pointsize>13</pointsize>
+           <pointsize>18</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -4326,7 +4326,7 @@ QPushButton:disabled {
 }</string>
          </property>
          <property name="text">
-          <string>,</string>
+          <string>*</string>
          </property>
         </widget>
         <widget class="QPushButton" name="pushButton_112">
@@ -4390,7 +4390,7 @@ QPushButton:disabled {
 }</string>
          </property>
          <property name="text">
-          <string>.</string>
+          <string>%</string>
          </property>
         </widget>
         <widget class="QPushButton" name="pushButton_114">
@@ -4404,7 +4404,7 @@ QPushButton:disabled {
          </property>
          <property name="font">
           <font>
-           <pointsize>13</pointsize>
+           <pointsize>18</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -4422,7 +4422,7 @@ QPushButton:disabled {
 }</string>
          </property>
          <property name="text">
-          <string>\</string>
+          <string>-</string>
          </property>
         </widget>
        </widget>
@@ -4923,6 +4923,903 @@ border-radius :5px;</string>
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="page_11">
+     <widget class="QToolButton" name="toolButton_18">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>50</y>
+        <width>351</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QToolButton {
+background-color:qlineargradient(spread:reflect, x1:0.535816, y1:0.489, x2:0.53051, y2:1, stop:0 rgba(22, 38, 54,255), stop:1 rgba(55,65,74,255));
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-bottom-right-radius :30px;
+/*border-top-left-radius :30px;*/
+/*border-radius: 10px;*/
+}
+QToolButton:pressed{
+background-color:rgb(0, 170, 255)
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>WiFi</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_19">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>130</y>
+        <width>351</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QToolButton {
+background-color:qlineargradient(spread:reflect, x1:0.535816, y1:0.489, x2:0.53051, y2:1, stop:0 rgba(22, 38, 54,255), stop:1 rgba(55,65,74,255));
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-bottom-right-radius :30px;
+/*border-top-left-radius :30px;*/
+/*border-radius: 10px;*/
+}
+QToolButton:pressed{
+background-color:rgb(0, 170, 255)
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Pump Calibration</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_20">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>210</y>
+        <width>351</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QToolButton {
+background-color:qlineargradient(spread:reflect, x1:0.535816, y1:0.489, x2:0.53051, y2:1, stop:0 rgba(22, 38, 54,255), stop:1 rgba(55,65,74,255));
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-bottom-right-radius :30px;
+/*border-top-left-radius :30px;*/
+/*border-radius: 10px;*/
+}
+QToolButton:pressed{
+background-color:rgb(0, 170, 255)
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Rinsing/Priming Duration</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_12">
+     <widget class="QComboBox" name="comboBox">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>60</y>
+        <width>301</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox{
+border:                 none;
+background-color:   rgb(87, 96, 134);
+color:                      rgb(255,255,255);
+font-weight:            bold;
+padding:                    5px 
+
+}
+
+QComboBox::drop-down{
+    border:                 none;
+    background-color:   rgb(87, 96, 134);
+    color:                      rgb(255, 255, 255);
+    font-weight:            bold;
+    padding:                    0px;
+}
+
+QComboBox::down-arrow{
+    image:                      url(:/icons/combobox_down_arrow.png);
+    padding-right:          5px;
+}
+
+QListView{
+    border:                 none;
+    color:                      rgb(87, 96, 134);
+    background-color:    rgb(87, 96, 134);
+    font-weight:            bold;
+    selection-background-color: rgb(47, 175, 178);
+    show-decoration-selected: 1;
+    margin-left:                -10px;
+    padding-left    :           15px;
+}
+
+QListView::item:hover{
+
+    background-color:   rgb(47, 175, 178);
+    border:                 none;
+}</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_21">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>70</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>SSID</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_22">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>140</y>
+        <width>101</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>PASSWORD</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>130</y>
+        <width>281</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(0,0,0,0));
+border: 0px solid rgb(0, 170, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_5">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>130</y>
+        <width>301</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-radius :5px;</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_6">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>230</y>
+        <width>301</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-radius :5px;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_23">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>240</y>
+        <width>101</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>IP</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_25">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>130</y>
+        <width>141</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QToolButton {
+background-color:qlineargradient(spread:reflect, x1:0.535816, y1:0.489, x2:0.53051, y2:1, stop:0 rgba(22, 38, 54,255), stop:1 rgba(55,65,74,255));
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-bottom-right-radius :30px;
+/*border-top-left-radius :30px;*/
+/*border-radius: 10px;*/
+}
+QToolButton:pressed{
+background-color:rgb(0, 170, 255)
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Connect</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_26">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>220</y>
+        <width>141</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QToolButton {
+background-color:qlineargradient(spread:reflect, x1:0.535816, y1:0.489, x2:0.53051, y2:1, stop:0 rgba(22, 38, 54,255), stop:1 rgba(55,65,74,255));
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-bottom-right-radius :30px;
+/*border-top-left-radius :30px;*/
+/*border-radius: 10px;*/
+}
+QToolButton:pressed{
+background-color:rgb(0, 170, 255)
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Refresh</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_32">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>20</y>
+        <width>331</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>Scanning Available Network...</string>
+      </property>
+     </widget>
+     <zorder>comboBox</zorder>
+     <zorder>label_21</zorder>
+     <zorder>label_22</zorder>
+     <zorder>lineEdit_5</zorder>
+     <zorder>lineEdit_6</zorder>
+     <zorder>label_23</zorder>
+     <zorder>toolButton_25</zorder>
+     <zorder>toolButton_26</zorder>
+     <zorder>pushButton_4</zorder>
+     <zorder>label_32</zorder>
+    </widget>
+    <widget class="QWidget" name="page_13">
+     <widget class="QLineEdit" name="lineEdit_7">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>70</y>
+        <width>191</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-radius :5px;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_24">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>80</y>
+        <width>101</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>Rinse Pump</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_7">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>70</y>
+        <width>171</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(0,0,0,0));
+border: 0px solid rgb(0, 170, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_25">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>50</y>
+        <width>191</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>Speed[0-255]</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_8">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>70</y>
+        <width>101</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(0,0,0,0));
+border: 0px solid rgb(0, 170, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_8">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>70</y>
+        <width>121</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-radius :5px;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_26">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>50</y>
+        <width>111</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>Duration</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_9">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>160</y>
+        <width>121</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-radius :5px;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_11">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>160</y>
+        <width>171</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(0,0,0,0));
+border: 0px solid rgb(0, 170, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_10">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>160</y>
+        <width>191</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-radius :5px;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_27">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>140</y>
+        <width>111</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>Duration</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_28">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>140</y>
+        <width>191</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>Speed[0-255]</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_29">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>170</y>
+        <width>101</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>Prime Pump</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_12">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>160</y>
+        <width>101</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(0,0,0,0));
+border: 0px solid rgb(0, 170, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_21">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>70</y>
+        <width>141</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QToolButton {
+background-color:qlineargradient(spread:reflect, x1:0.535816, y1:0.489, x2:0.53051, y2:1, stop:0 rgba(22, 38, 54,255), stop:1 rgba(55,65,74,255));
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-bottom-right-radius :30px;
+/*border-top-left-radius :30px;*/
+/*border-radius: 10px;*/
+}
+QToolButton:pressed{
+background-color:rgb(0, 170, 255)
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Test</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_22">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>150</y>
+        <width>141</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QToolButton {
+background-color:qlineargradient(spread:reflect, x1:0.535816, y1:0.489, x2:0.53051, y2:1, stop:0 rgba(22, 38, 54,255), stop:1 rgba(55,65,74,255));
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-bottom-right-radius :30px;
+/*border-top-left-radius :30px;*/
+/*border-radius: 10px;*/
+}
+QToolButton:pressed{
+background-color:rgb(0, 170, 255)
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Test</string>
+      </property>
+     </widget>
+     <zorder>lineEdit_7</zorder>
+     <zorder>label_24</zorder>
+     <zorder>label_25</zorder>
+     <zorder>lineEdit_8</zorder>
+     <zorder>label_26</zorder>
+     <zorder>lineEdit_9</zorder>
+     <zorder>lineEdit_10</zorder>
+     <zorder>label_27</zorder>
+     <zorder>label_28</zorder>
+     <zorder>label_29</zorder>
+     <zorder>toolButton_21</zorder>
+     <zorder>toolButton_22</zorder>
+     <zorder>pushButton_11</zorder>
+     <zorder>pushButton_12</zorder>
+     <zorder>pushButton_7</zorder>
+     <zorder>pushButton_8</zorder>
+    </widget>
+    <widget class="QWidget" name="page_14">
+     <widget class="QToolButton" name="toolButton_23">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>155</y>
+        <width>141</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QToolButton {
+background-color:qlineargradient(spread:reflect, x1:0.535816, y1:0.489, x2:0.53051, y2:1, stop:0 rgba(22, 38, 54,255), stop:1 rgba(55,65,74,255));
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-bottom-right-radius :30px;
+/*border-top-left-radius :30px;*/
+/*border-radius: 10px;*/
+}
+QToolButton:pressed{
+background-color:rgb(0, 170, 255)
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Test</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_11">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>160</y>
+        <width>121</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-radius :5px;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_13">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>160</y>
+        <width>101</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(0,0,0,0));
+border: 0px solid rgb(0, 170, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_30">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>170</y>
+        <width>151</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>Priming Duration (S)</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_31">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>100</y>
+        <width>151</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>Rinsing Duration (S)</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_14">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>90</y>
+        <width>101</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(0,0,0,0));
+border: 0px solid rgb(0, 170, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_24">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>85</y>
+        <width>141</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QToolButton {
+background-color:qlineargradient(spread:reflect, x1:0.535816, y1:0.489, x2:0.53051, y2:1, stop:0 rgba(22, 38, 54,255), stop:1 rgba(55,65,74,255));
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-bottom-right-radius :30px;
+/*border-top-left-radius :30px;*/
+/*border-radius: 10px;*/
+}
+QToolButton:pressed{
+background-color:rgb(0, 170, 255)
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Test</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_12">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>90</y>
+        <width>121</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-radius :5px;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>toolButton_23</zorder>
+     <zorder>lineEdit_11</zorder>
+     <zorder>label_30</zorder>
+     <zorder>label_31</zorder>
+     <zorder>toolButton_24</zorder>
+     <zorder>lineEdit_12</zorder>
+     <zorder>pushButton_13</zorder>
+     <zorder>pushButton_14</zorder>
+    </widget>
    </widget>
    <widget class="QToolButton" name="toolButton_4">
     <property name="geometry">
@@ -5020,7 +5917,7 @@ background-color:rgb(0, 170, 255);
     </property>
     <property name="icon">
      <iconset resource="icons.qrc">
-      <normaloff>:/close.png</normaloff>:/close.png</iconset>
+      <normaloff>:/settings.png</normaloff>:/settings.png</iconset>
     </property>
     <property name="iconSize">
      <size>
