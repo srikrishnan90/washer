@@ -1000,7 +1000,7 @@ void MainWindow::on_pushButton_76_clicked()
 
 void MainWindow::on_pushButton_100_clicked()
 {
-    ui->lineEdit_4->setText("&");
+    ui->lineEdit_4->setText(ui->lineEdit_4->text()+"&");
 }
 
 void MainWindow::on_pushButton_77_clicked()
