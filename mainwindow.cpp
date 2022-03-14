@@ -7,6 +7,7 @@ static int wash_method=0;
 static int wash_option=0;
 static int wash_volume=0;
 static int wash_times=0;
+static int soak_times=0;
 static int pump_speed=0;
 static int current_pos=0;
 static int previous_pos=0;
@@ -51,6 +52,7 @@ void MainWindow::on_toolButton_clicked()
     ui->listWidget_2->setCurrentRow(1);
     ui->listWidget_3->setCurrentRow(6);
     ui->listWidget_4->setCurrentRow(4);
+    ui->lineEdit_13->setText("0");
 
 }
 
@@ -116,13 +118,15 @@ void MainWindow::on_toolButton_6_clicked()
     wash_volume=ui->listWidget_3->currentRow();
     wash_times=ui->listWidget_4->currentRow();
     pump_speed=ui->lineEdit_10->text().toInt();
+    soak_times=ui->lineEdit_13->text().toInt();
+
     processing();
 
 }
 
 void MainWindow::processing()
 {
-
+    write_heater("was");
     QString data, text;
     if(wash_method==0)
     {
@@ -130,8 +134,6 @@ void MainWindow::processing()
         {
             if(stop_stat==1)
             {
-                stop_stat=0;
-                ui->stackedWidget->setCurrentIndex(0);
                 break;
             }
             else
@@ -140,6 +142,12 @@ void MainWindow::processing()
                 ui->label_13->setText("Homing...");
                 write_motor(data);
                 current_pos=0;
+                if(i!=0)
+                {
+                    ui->label_13->setText("Soaking for "+QString::number(soak_times)+" sec.");
+                    data="sok "+QString::number(soak_times);
+                    write_motor(data);
+                }
                 for(int j=0;j<12;j++)
                 {
                     if(strip[j]==1)
@@ -172,10 +180,18 @@ void MainWindow::processing()
                 }
             }
         }
-        data="ini";
-        ui->label_13->setText("Homing...");
-        write_motor(data);
-        ui->stackedWidget->setCurrentIndex(0);
+        if(stop_stat==1)
+        {
+            stop_stat=0;
+            ui->stackedWidget->setCurrentIndex(0);
+        }
+        else
+        {
+            data="ini";
+            ui->label_13->setText("Homing...");
+            write_motor(data);
+            ui->stackedWidget->setCurrentIndex(0);
+        }
     }
     else
     {
@@ -187,8 +203,6 @@ void MainWindow::processing()
         {
             if(stop_stat==1)
             {
-                stop_stat=0;
-                ui->stackedWidget->setCurrentIndex(0);
                 break;
             }
             else
@@ -213,6 +227,9 @@ void MainWindow::processing()
                             }
                             else
                             {
+                                ui->label_13->setText("Soaking for "+QString::number(soak_times)+" sec.");
+                                data="sok "+QString::number(soak_times);
+                                write_motor(data);
                                 if(i==wash_times+1)
                                 {
                                     data="mof 0 "+QString::number(wash_volume)+" "+QString::number(wash_option)+" "+QString::number(pump_speed);
@@ -233,11 +250,21 @@ void MainWindow::processing()
                 }
             }
         }
-        data="ini";
-        ui->label_13->setText("Homing...");
-        write_motor(data);
-        ui->stackedWidget->setCurrentIndex(0);
+        if(stop_stat==1)
+        {
+            stop_stat=0;
+            ui->stackedWidget->setCurrentIndex(0);
+        }
+        else
+        {
+            data="ini";
+            ui->label_13->setText("Homing...");
+            write_motor(data);
+            ui->stackedWidget->setCurrentIndex(0);
+        }
+
     }
+    write_heater("waf");
     ui->toolButton_4->setVisible(true);
     ui->toolButton_17->setVisible(true);
 }
@@ -259,6 +286,7 @@ void MainWindow::write_motor(QString val)
             QApplication::processEvents();
             QThread::msleep(100);
             read_sensor();
+            //qDebug()<<wplg_stat<<" "<<wsen_stat;
             if(wplg_stat==1 || wsen_stat==1)
             {
                 write_heater("buz 2");
@@ -317,7 +345,31 @@ void MainWindow::write_motor(QString val)
             }
             else if(stop_stat==1)
             {
-                break;
+                msgBox.setWindowTitle("Warning...");
+                msgBox.setText("Are you sure to Stop Washing.");
+                msgBox.setStandardButtons(msgBox.Yes);
+                msgBox.addButton(msgBox.Cancel);
+                msgBox.setStyleSheet("QLabel{min-width:500 px; font-size: 24px;} QPushButton{ width:200px; height:50px; font-size: 18px; }");
+                if(msgBox.exec() == msgBox.Yes)
+                {
+                    stop_stat=1;
+                    QString data="stp";
+                    char* ch;
+                    QByteArray ba=data.toLatin1();
+                    ch=ba.data();
+                    QThread::msleep(100);
+                    arduino.i2cWrite(ch,30);
+                    QThread::msleep(100);
+                    qDebug()<<ch;
+                    break;
+                }
+                else
+                {
+                    stop_stat=0;
+                    ui->toolButton_9->setVisible(true);
+                    ui->toolButton_4->hide();
+                    ui->toolButton_17->hide();
+                }
             }
         }
     }
@@ -376,13 +428,13 @@ int MainWindow::read_sensor()
     arduino.i2cRead(receive,30);
     QThread::msleep(100);
     QString str=receive;
-    wplg_stat=str.mid(8,1).toInt();
-    wsen_stat=str.mid(11,1).toInt();
-    //   qDebug()<<"plug:"<<wplg_stat<<"sensor:"<<wsen_stat<<"str:"<<str;
-    //   for(int i=0;i<13;i++)
-    //   {
-    //       qDebug()<<str.mid(i,1);
-    //   }
+    wplg_stat=str.mid(6,1).toInt();
+    wsen_stat=str.mid(9,1).toInt();
+//       qDebug()<<"plug:"<<wplg_stat<<"sensor:"<<wsen_stat<<"str:"<<str;
+//       for(int i=0;i<13;i++)
+//       {
+//           qDebug()<<str.mid(i,1);
+//       }
 }
 
 void MainWindow::on_toolButton_2_clicked()
@@ -537,6 +589,12 @@ void MainWindow::on_pushButton_136_clicked()
         ui->lineEdit_11->setText(ui->lineEdit_4->text());
         save(5,ui->lineEdit_4->text());
         ui->stackedWidget->setCurrentIndex(10);
+    }
+    else if(optn==11)
+    {
+        ui->lineEdit_13->setText(ui->lineEdit_4->text());
+        //save(6,ui->lineEdit_4->text());
+        ui->stackedWidget->setCurrentIndex(1);
     }
 }
 
@@ -1368,4 +1426,13 @@ void MainWindow::on_toolButton_23_clicked()
     QString sec=ui->lineEdit_11->text();
     QString str="prm "+spd+" "+sec;
     write_motor(str);
+}
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    optn=11;
+    ui->lineEdit_4->clear();
+    ui->lineEdit_4->setText(ui->lineEdit_13->text());
+    ui->stackedWidget->setCurrentIndex(6);
+    ui->stackedWidget_2->setCurrentIndex(2);
 }

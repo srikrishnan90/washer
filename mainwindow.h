@@ -296,6 +296,8 @@ private slots:
 
     void on_toolButton_23_clicked();
 
+    void on_pushButton_6_clicked();
+
 private:
     Ui::MainWindow *ui;
     QTimer *timer, *timer1, *timer2, *temptimer;
