@@ -738,7 +738,9 @@ void MainWindow::on_toolButton_8_clicked()
     QString spd=ui->lineEdit_7->text();
     QString sec=ui->lineEdit_12->text();
     QString str="rns "+spd+" "+sec;
+    write_heater("was");
     write_motor(str);
+    write_heater("waf");
 
 }
 
@@ -748,7 +750,9 @@ void MainWindow::on_toolButton_16_clicked()
     QString spd=ui->lineEdit_10->text();
     QString sec=ui->lineEdit_11->text();
     QString str="prm "+spd+" "+sec;
+    write_heater("was");
     write_motor(str);
+    write_heater("waf");
 }
 
 void MainWindow::on_toolButton_17_clicked()
