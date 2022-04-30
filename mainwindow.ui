@@ -30,7 +30,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QToolButton" name="toolButton">
@@ -4996,7 +4996,7 @@ border-radius :5px;</string>
       <property name="geometry">
        <rect>
         <x>60</x>
-        <y>50</y>
+        <y>30</y>
         <width>351</width>
         <height>50</height>
        </rect>
@@ -5029,7 +5029,7 @@ background-color:rgb(0, 170, 255)
       <property name="geometry">
        <rect>
         <x>60</x>
-        <y>130</y>
+        <y>110</y>
         <width>351</width>
         <height>50</height>
        </rect>
@@ -5062,7 +5062,7 @@ background-color:rgb(0, 170, 255)
       <property name="geometry">
        <rect>
         <x>60</x>
-        <y>210</y>
+        <y>190</y>
         <width>351</width>
         <height>50</height>
        </rect>
@@ -5089,6 +5089,39 @@ background-color:rgb(0, 170, 255)
       </property>
       <property name="text">
        <string>Rinsing/Priming Duration</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButton_27">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>270</y>
+        <width>351</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QToolButton {
+background-color:qlineargradient(spread:reflect, x1:0.535816, y1:0.489, x2:0.53051, y2:1, stop:0 rgba(22, 38, 54,255), stop:1 rgba(55,65,74,255));
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-bottom-right-radius :30px;
+/*border-top-left-radius :30px;*/
+/*border-radius: 10px;*/
+}
+QToolButton:pressed{
+background-color:rgb(0, 170, 255)
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Monitor Incubator Temperature</string>
       </property>
      </widget>
     </widget>
@@ -5888,6 +5921,54 @@ border-radius :5px;</string>
      <zorder>pushButton_13</zorder>
      <zorder>pushButton_14</zorder>
     </widget>
+    <widget class="QWidget" name="page_15">
+     <widget class="QLabel" name="label_17">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>145</y>
+        <width>100</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+color:rgb(255, 255, 255);
+border: 2px solid rgb(0, 170, 255);
+border-radius :5px;
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_18">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>150</y>
+        <width>201</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>Incubator Temperature</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QToolButton" name="toolButton_4">
     <property name="geometry">
@@ -5927,31 +6008,6 @@ background-color:rgb(0, 170, 255);
       <width>40</width>
       <height>40</height>
      </size>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_17">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>435</y>
-      <width>100</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">
-color:rgb(255, 255, 255);
-border: 2px solid rgb(0, 170, 255);
-border-radius :5px;
-</string>
-    </property>
-    <property name="text">
-     <string/>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_17">
@@ -5994,31 +6050,10 @@ background-color:rgb(0, 170, 255);
      </size>
     </property>
    </widget>
-   <widget class="QLabel" name="label_18">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>440</y>
-      <width>201</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color:rgb(255, 255, 255)</string>
-    </property>
-    <property name="text">
-     <string>Incubator Temperature</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_19">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>160</x>
       <y>440</y>
       <width>251</width>
       <height>21</height>
@@ -6033,7 +6068,7 @@ background-color:rgb(0, 170, 255);
      <rect>
       <x>40</x>
       <y>440</y>
-      <width>121</width>
+      <width>91</width>
       <height>20</height>
      </rect>
     </property>
@@ -6046,7 +6081,7 @@ background-color:rgb(0, 170, 255);
      <string notr="true">color:rgb(255, 255, 255)</string>
     </property>
     <property name="text">
-     <string>Progress Bar</string>
+     <string>Status</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_5">

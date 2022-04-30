@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer1, SIGNAL(timeout()), this,SLOT(timer1update()));
     connect(timer2, SIGNAL(timeout()), this,SLOT(timer2update()));
     connect(temptimer, SIGNAL(timeout()), this,SLOT(read_heater()));
-    temptimer->start(1000);
+    //temptimer->start(1000);
     ui->stackedWidget->setCurrentIndex(0);
     init_load_set();
 }
@@ -59,6 +59,7 @@ void MainWindow::on_toolButton_clicked()
 void MainWindow::on_toolButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    temptimer->stop();
 
 }
 
@@ -339,11 +340,7 @@ void MainWindow::write_motor(QString val)
         {
             QApplication::processEvents();
             QThread::msleep(100);
-            if(read_motor())
-            {
-                break;
-            }
-            else if(stop_stat==1)
+            if(stop_stat==1)
             {
                 msgBox.setWindowTitle("Warning...");
                 msgBox.setText("Are you sure to Stop Washing.");
@@ -370,6 +367,11 @@ void MainWindow::write_motor(QString val)
                     ui->toolButton_4->hide();
                     ui->toolButton_17->hide();
                 }
+
+            }
+            if(read_motor())
+            {
+                break;
             }
         }
     }
@@ -758,6 +760,7 @@ void MainWindow::on_toolButton_16_clicked()
 void MainWindow::on_toolButton_17_clicked()
 {
     ui->stackedWidget->setCurrentIndex(7);
+     temptimer->stop();
 }
 
 void MainWindow::on_pushButton_5_clicked()
@@ -1439,4 +1442,10 @@ void MainWindow::on_pushButton_6_clicked()
     ui->lineEdit_4->setText(ui->lineEdit_13->text());
     ui->stackedWidget->setCurrentIndex(6);
     ui->stackedWidget_2->setCurrentIndex(2);
+}
+
+void MainWindow::on_toolButton_27_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(11);
+    temptimer->start(1000);
 }
